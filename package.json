@@ -1,0 +1,30 @@
+{
+  "name": "game",
+  "version": "1.0.0",
+  "description": "a game",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.16.2",
+    "express-handlebars": "^3.0.0",
+    "monk": "^6.0.5"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "npm test",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amonjerro/gIdea.git"
+  },
+  "keywords": [
+    "game",
+    "rpg"
+  ],
+  "author": "Eduardo Escudero",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/amonjerro/gIdea/issues"
+  },
+  "homepage": "https://github.com/amonjerro/gIdea#readme"
+}
