@@ -7,7 +7,7 @@ module.exports = class Monster {
 	getFromTemplate(templateName){
 		var slf = this;
 		return new Promise(function(resolve, reject){
-			slf.connection.find({name:templateName}).then(function(template){
+			slf.connection.monsters.find({name:templateName}).then(function(template){
 				return resolve(template);
 			}).catch(function(err){
 				console.log(err)
@@ -17,11 +17,13 @@ module.exports = class Monster {
 		})
 	}
 
-	createTemplate(name,hp,baseDMG,xp){
+	createTemplate(name,hp,baseDmg,defense,init,xp){
 		this.template = {
 			name:name,
 			hp:hp,
-			baseDMG:baseDMG,
+			baseDmg:baseDmg,
+			defense:defense,
+			init:init,
 			xp:xp
 		}
 	}
@@ -29,7 +31,7 @@ module.exports = class Monster {
 	saveTemplate(){
 		var slf = this; 
 		if (slf.template){
-			slf.connection.insert({slf.template});
+			slf.connection.insert(slf.template);
 		} 
 	}
 
