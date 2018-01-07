@@ -11,7 +11,7 @@ var handlebars = require('express-handlebars').create({defaultLayout:'main'});
 server.engine('handlebars',handlebars.engine);
 server.set('view engine','handlebars');
 
-server.set('port', process.env.PORT || 3200);
+server.set('port', process.env.PORT || 3000);
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({extended: false}))
 
