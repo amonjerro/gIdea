@@ -2,7 +2,7 @@ const express = require('express');
 var server = express();
 const bodyParser = require('body-parser');
 
-
+var monster_api = require('./routes/monsters');
 var navigator = require('./routes/main');
 
 server.disable('x-powered-by');
@@ -18,6 +18,7 @@ server.use(bodyParser.urlencoded({extended: false}))
 
 
 server.use(express.static(__dirname + '/public'));
+server.use('/monsters',monster_api);
 server.use('/', navigator);
 
 
