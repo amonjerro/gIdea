@@ -3,7 +3,6 @@ const router = express.Router();
 const monk = require('monk');
 const no_sql = require('../utils/no-sql');
 const MongoConn = new no_sql();
-const monk = require('monk');
 
 /*
 	0 - No Room
@@ -15,6 +14,10 @@ const monk = require('monk');
 	6 - End Room
 */
 
+
+function getNeighbours(map,x,y){
+	
+}
 
 function randomInt(min,max){
 	return Math.floor(min + Math.random()*(max - min + 1));

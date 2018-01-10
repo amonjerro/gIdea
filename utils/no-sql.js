@@ -19,5 +19,8 @@ DB.prototype.clearActive = function(){
 	this.activeEnemies.remove({});
 }
 
+DB.prototype.turnToID = function(idString){
+	return monk.id(idString);
+}
 
 module.exports = DB;
