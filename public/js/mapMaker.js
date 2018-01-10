@@ -1,27 +1,18 @@
 function sizeByDifficulty(diffLevel){
 	var dimensions = {x:1,y:1}
 	if (diffLevel == 1){
-		dimensions.x = (Math.floor(Math.random()*5))+2
-		dimensions.y = (Math.floor(Math.random()*4))+2
+		dimensions.x = randomInt(4,6)
+		dimensions.y = randomInt(3,5)
 	}
 	 else if (diffLevel == 2){
-		dimensions.x = (Math.floor(Math.random()*5))+4
-		dimensions.y = (Math.floor(Math.random()*4))+4
+		dimensions.x = randomInt(6,9)
+		dimensions.y = randomInt(5,8)
 	}
 	else if (diffLevel == 3){
-		dimensions.x = (Math.floor(Math.random()*7))+7
-		dimensions.y = (Math.floor(Math.random()*6))+5
+		dimensions.x = randomInt(9,12)
+		dimensions.y = randomInt(8,11)
 	}
 	return dimensions;
-}
-
-function assembleFromDimensions(dimensions){
-	var mapLength = dimensions.x * dimensions.y;
-	var mapArray = []
-	for (var i = 0; i < mapLength; i++){
-		mapArray.push(Math.floor(Math.random()*10));
-	}
-	return mapArray;
 }
 
 function chopMap(){

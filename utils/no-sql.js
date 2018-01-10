@@ -12,6 +12,7 @@ var mongodb = require('monk')('localhost:27017/game');
 function DB(){
 	this.monsters = mongodb.get('monsters');
 	this.activeEnemies = mongodb.get('active');
+	this.games = mongodb.get('games');
 }
 
 DB.prototype.clearActive = function(){
