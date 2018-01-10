@@ -4,6 +4,8 @@ const bodyParser = require('body-parser');
 
 var monster_api = require('./routes/monsters');
 var navigator = require('./routes/main');
+var state_api = require('./routes/stateHandler');
+var logic_api = require('./routes/logic');
 
 server.disable('x-powered-by');
 
@@ -16,9 +18,10 @@ server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({extended: false}))
 
 
-
 server.use(express.static(__dirname + '/public'));
 server.use('/monsters',monster_api);
+server.use('/gstate',state_api);
+server.use('/logic',logic_api);
 server.use('/', navigator);
 
 
