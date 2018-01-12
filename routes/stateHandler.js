@@ -22,10 +22,20 @@ router.post('/save',function(req,resp){
 
 router.post('/newMap',function(req,resp){
 	var map = req.body['map[]'];
-	console.log(req.body['map[]'])
 	map = map.map(function(num){ return parseInt(num)})
-	console.log(map)
-	MongoConn.games.update({'_id':monk.id(req.body.id)},{'$set':{currentMap:map}}).then(function(){
+	console.log(req.body)
+	MongoConn.games.update(
+		{'_id':monk.id(req.body.id)},
+		{'$set':
+			{
+				currentMap:map,currentMapDimensions:
+					{
+						'x':parseInt(req.body['dimensions[x]']),
+						'y':parseInt(req.body['dimensions[y]'])
+					},
+				currentPosition:{'x':req.body['position[x]'],'y':req.body['position[y]']}
+			}
+		}).then(function(){
 		resp.json({ok:true})
 	}).catch(function(){
 		resp.json({ok:false})

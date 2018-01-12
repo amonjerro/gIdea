@@ -8,9 +8,18 @@ function saveState(){
 	})
 }
 
-function saveMap(map){
-	console.log(map)
-	$.post('/gstate/newMap',{id:gameState.id,map:map},function(data){
+function saveMap(data){
+	var position = {
+		x:data.position,
+		y:data.position,
+	}
+	$.post('/gstate/newMap',
+		{
+			id:gameState.id,
+			map:data.map,
+			dimensions:gameState.currentMapDimensions,
+			position:position
+		},function(data){
 		console.log(data);
 	})
 }

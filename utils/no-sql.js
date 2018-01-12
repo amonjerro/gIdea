@@ -7,7 +7,8 @@
 //     ssl: true,
 //     sslCA: mongoSSLCA,
 // };
-var mongodb = require('monk')('localhost:27017/game');
+var monk = require('monk')
+var mongodb = monk('localhost:27017/game');
 
 function DB(){
 	this.monsters = mongodb.get('monsters');
