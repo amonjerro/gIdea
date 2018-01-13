@@ -15,26 +15,76 @@ function sizeByDifficulty(diffLevel){
 	return dimensions;
 }
 
-function chopMap(){
+function chopMap(arr){
 	var map = [];
 	for (var i = 0; i < gameState.currentMapDimensions.y; i++){
-		map.push(gameState.currentMap.slice(i*gameState.currentMapDimensions.x,(i*gameState.currentMapDimensions.x)+gameState.currentMapDimensions.x))
+		map.push(arr.slice(i*gameState.currentMapDimensions.x,(i*gameState.currentMapDimensions.x)+gameState.currentMapDimensions.x))
 	}
 	return map;
 }
 
-function getCoordinateData(x,y){
-	if (x*y > gameState.currentMap.length){
-		console.log('Out of bounds')
-		return false;
+function getNeighbours(){
+	var neighbours = {
 	}
-	if (x >= gameState.currentMapDimensions.x){
-		console.log('X-Coordinate out of bounds')
-		return false;	
+	//Top Left Corner of the Map
+	if (gameState.currentPosition == 0){
+		neighbours.right = 1;
+		neighbours.bottom = gameState.currentMapDimensions.x
+		return neighbours;
 	}
-	if (y >= gameState.currentMapDimensions.y){
-		console.log('Y-Coordinate out of bounds')
-		return false;	
+	//Bottom Right Corner of the Map
+	if (gameState.currentPosition == (gameState.currentMapDimensions.x*gameState.currentMapDimensions.y) - 1){
+		neighbours.left = gameState.currentPosition - 1;
+		neighbours.top = gameState.currentPosition - gameState.currentMapDimensions.x
+		return neighbours;
 	}
-	return gameState.currentMap[x+(y*gameState.currentMapDimensions.x)]
+	//Top Right Corner of the Map
+	if (gameState.currentPosition == gameState.currentMapDimensions.x - 1){
+		neighbours.left = gameState.currentPosition - 1;
+		neighbours.bottom = gameState.currentPosition + gameState.currentMapDimensions.x
+		return neighbours;
+	}
+	//Bottom Left Corner of the Map
+	if (gameState.currentPosition == gameState.currentMapDimensions.x*(gameState.currentMapDimensions.y-1)){
+		neighbours.right = gameState.currentPosition + 1;
+		neighbours.top = gameState.currentPosition - gameState.currentMapDimensions.x
+		return neighbours;
+	}
+	//Top Row of the Map
+	if (gameState.currentPosition < gameState.currentMapDimensions.x){
+		neighbours.left = gameState.currentPosition - 1;
+		neighbours.right = gameState.currentPosition + 1;
+		neighbours.bottom = gameState.currentPosition + gameState.currentMapDimensions.x;
+		return neighbours;
+	}
+	//Left-most Column of the Map
+	if (gameState.currentPosition % gameState.currentMapDimensions.x == 0){
+		neighbours.top = gameState.currentPosition - gameState.currentMapDimensions.x;
+		neighbours.right = gameState.currentPosition + 1;
+		neighbours.bottom = gameState.currentPosition + gameState.currentMapDimensions.x;
+		return neighbours
+	}
+	//Right-most Column of the Map
+	if (gameState.currentPosition % (gameState.currentMapDimensions.x-1) == 0){
+		neighbours.top = gameState.currentPosition - gameState.currentMapDimensions.x;
+		neighbours.left = gameState.currentPosition - 1;
+		neighbours.bottom = gameState.currentPosition + gameState.currentMapDimensions.x;
+		return neighbours
+	}
+	//Bottom Row of the Map
+	if (gameState.currentPosition > gameState.currentMapDimensions.x*(gameState.currentMapDimensions.y-1)){
+		neighbours.left = gameState.currentPosition - 1;
+		neighbours.right = gameState.currentPosition + 1;
+		neighbours.top = gameState.currentPosition - gameState.currentMapDimensions.x;
+		return neighbours;
+	}
+	//Anywhere fucking else
+	neighbours.top = gameState.currentPosition - gameState.currentMapDimensions.x;
+	neighbours.left = gameState.currentPosition - 1;
+	neighbours.right = gameState.currentPosition + 1;
+	neighbours.bottom = gameState.currentPosition + gameState.currentMapDimensions.x;
+	return neighbours
+}
+
+function getCoordinateData(position){
 }

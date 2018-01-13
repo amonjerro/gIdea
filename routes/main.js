@@ -13,7 +13,7 @@ router.get('/play',function(req,resp){
 		return;
 	}
 	if (req.query.action == 'load'){
-		MongoConn.games.find({'_id':MongoConn.turnToID(req.query.id)},{fields:{currentMap:0}}).then(function(gameState){
+		MongoConn.games.find({'_id':MongoConn.turnToID(req.query.id)}).then(function(gameState){
 			resp.render('play',{new:false,id:JSON.stringify(gameState[0])})
 		})
 	}

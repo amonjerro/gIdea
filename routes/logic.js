@@ -14,15 +14,11 @@ const MongoConn = new no_sql();
 */
 
 
-function getNeighbours(map,x,y){
-	
-}
-
 function randomInt(min,max){
 	return Math.floor(min + Math.random()*(max - min + 1));
 }
 
-function setStartPosition(range,map,callback){
+function setStartPosition(x,range,map,costMap,callback){
 	var lowFlip = Math.random() > 0.5;
 	var currentPosition = 0;
 	if (lowFlip){
@@ -32,31 +28,47 @@ function setStartPosition(range,map,callback){
 		currentPosition = randomInt(Math.floor(range*2/3),range-1);
 		map[currentPosition] = 5;
 	}
-	setEndPosition(currentPosition,lowFlip,range,map,callback);
+	setEndPosition(x,currentPosition,lowFlip,range,map,costMap,callback);
 }
 
-function setEndPosition(position,lowFlip,range,map,callback){
+function setEndPosition(x,start,lowFlip,range,map,costMap,callback){
+	var end = 0;
 	if (lowFlip){
-		map[randomInt(Math.floor(range*2/3),range-1)] = 6;
+		end = randomInt(Math.floor(range*2/3),range-1);
+		map[end] = 6;
 	} else {
-		map[randomInt(0, Math.floor(range/3))] = 6;
+		end = randomInt(0, Math.floor(range/3));
+		map[end] = 6;
 	}
-	callback.json({map:map,position:position})
+	createCostMap(x,start,end,map,costMap,callback)
 }
+
+function createCostMap(x,start,end,map,costMap,callback){
+	var deltaAbs = 0;
+	for (var i = 0; i < costMap.length; i++){
+		deltaAbs = Math.abs(end - i);
+		costMap[i] = (deltaAbs - (Math.floor(deltaAbs /x)*x))+(Math.floor(deltaAbs /x));
+	}
+	callback.json({map:map,costMap:costMap,startPosition:start,endPosition:end})
+}
+
 
 router.get('/map/generate',function(req,resp){
 	var mapLength = req.query.x * req.query.y;
-	var mapArray = []
+	var mapArray = [];
+	var costMap = [];
 	for (var i = 0; i < mapLength; i++){
 		mapArray.push(0);
+		costMap.push(0);
 	}
-	setStartPosition(mapLength,mapArray,resp)
+	setStartPosition(req.query.x,mapLength,mapArray,costMap,resp)
 })
 
 router.get('/map/coordinateData',function(req,resp){
 	MongoConn.games.find({'_id':MongoConn.turnToID(req.query.id)}).then(function(gameState){
-		resp.json(gameState[0].currentMap[(req.query.x*req.query.y)+req.query.x])
+		resp.json(gameState[0].currentMap[req.query.position])
 	})
 })
+
 
 module.exports = router;

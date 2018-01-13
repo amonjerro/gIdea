@@ -22,18 +22,22 @@ router.post('/save',function(req,resp){
 
 router.post('/newMap',function(req,resp){
 	var map = req.body['map[]'];
+	var costMap = req.body['costMap[]'];
+	var dimensions = {x:parseInt(req.body['dimensions[x]']),y:parseInt(req.body['dimensions[y]'])};
 	map = map.map(function(num){ return parseInt(num)})
-	console.log(req.body)
+	costMap = costMap.map(function(num){return parseInt(num)})
 	MongoConn.games.update(
 		{'_id':monk.id(req.body.id)},
 		{'$set':
 			{
 				currentMap:map,currentMapDimensions:
 					{
-						'x':parseInt(req.body['dimensions[x]']),
-						'y':parseInt(req.body['dimensions[y]'])
+						'x':dimensions.x,
+						'y':dimensions.y
 					},
-				currentPosition:{'x':req.body['position[x]'],'y':req.body['position[y]']}
+				currentPosition:parseInt(req.body.position),
+				currentEnd:parseInt(req.body.end),
+				costMap:costMap
 			}
 		}).then(function(){
 		resp.json({ok:true})
