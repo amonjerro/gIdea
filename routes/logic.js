@@ -47,7 +47,8 @@ function createCostMap(x,start,end,map,costMap,callback){
 	var deltaAbs = 0;
 	for (var i = 0; i < costMap.length; i++){
 		deltaAbs = Math.abs(end - i);
-		costMap[i] = (deltaAbs - (Math.floor(deltaAbs /x)*x))+(Math.floor(deltaAbs /x));
+		//				5						5		6	  6					  5		  6
+		costMap[i] = (deltaAbs - (Math.floor(deltaAbs / x ) * x ))+(Math.floor(deltaAbs / x));
 	}
 	callback.json({map:map,costMap:costMap,startPosition:start,endPosition:end})
 }
