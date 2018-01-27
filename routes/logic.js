@@ -44,15 +44,8 @@ function setEndPosition(x,start,lowFlip,range,map,costMap,callback){
 }
 
 function createCostMap(x,start,end,map,costMap,callback){
-	var deltaAbs = 0;
-	var endY = Math.floor(end/x)
-	var endX = end % x
-	var curX = 0
-	var curY = 0
 	for (var i = 0; i < costMap.length; i++){
-		curX = i % x
-		curY = Math.floor(i/x)
-		costMap[i] = Math.abs(endX-curX) + Math.abs(endY-curY)
+		costMap[i] = Math.abs((end%x)-(i%x)) + Math.abs((Math.floor(end/x))-(Math.floor(i/x)))
 	}
 	callback.json({map:map,costMap:costMap,startPosition:start,endPosition:end})
 }
