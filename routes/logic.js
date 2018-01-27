@@ -22,10 +22,10 @@ function setStartPosition(x,range,map,costMap,callback){
 	var lowFlip = Math.random() > 0.5;
 	var currentPosition = 0;
 	if (lowFlip){
-		currentPosition = randomInt(0, Math.floor(range/3));
+		currentPosition = randomInt(0, Math.floor(range/4));
 		map[currentPosition] = 5;
 	} else {
-		currentPosition = randomInt(Math.floor(range*2/3),range-1);
+		currentPosition = randomInt(Math.floor(range*2/4),range-1);
 		map[currentPosition] = 5;
 	}
 	setEndPosition(x,currentPosition,lowFlip,range,map,costMap,callback);
@@ -34,10 +34,10 @@ function setStartPosition(x,range,map,costMap,callback){
 function setEndPosition(x,start,lowFlip,range,map,costMap,callback){
 	var end = 0;
 	if (lowFlip){
-		end = randomInt(Math.floor(range*2/3),range-1);
+		end = randomInt(Math.floor(range*2/4),range-1);
 		map[end] = 6;
 	} else {
-		end = randomInt(0, Math.floor(range/3));
+		end = randomInt(0, Math.floor(range/4));
 		map[end] = 6;
 	}
 	createCostMap(x,start,end,map,costMap,callback)
@@ -45,10 +45,14 @@ function setEndPosition(x,start,lowFlip,range,map,costMap,callback){
 
 function createCostMap(x,start,end,map,costMap,callback){
 	var deltaAbs = 0;
+	var endY = Math.floor(end/x)
+	var endX = end % x
+	var curX = 0
+	var curY = 0
 	for (var i = 0; i < costMap.length; i++){
-		deltaAbs = Math.abs(end - i);
-		//				5						5		6	  6					  5		  6
-		costMap[i] = (deltaAbs - (Math.floor(deltaAbs / x ) * x ))+(Math.floor(deltaAbs / x));
+		curX = i % x
+		curY = Math.floor(i/x)
+		costMap[i] = Math.abs(endX-curX) + Math.abs(endY-curY)
 	}
 	callback.json({map:map,costMap:costMap,startPosition:start,endPosition:end})
 }
