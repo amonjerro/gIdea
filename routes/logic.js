@@ -51,6 +51,8 @@ function createCostMap(x,start,end,map,costMap,callback){
 }
 
 
+
+
 router.get('/map/generate',function(req,resp){
 	var mapLength = req.query.x * req.query.y;
 	var mapArray = [];
