@@ -8,19 +8,3 @@ function saveState(){
 	})
 }
 
-function saveMap(data){
-	console.log(data);
-	gameState.currentPosition = data.startPosition;
-	gameState.currentEnd = data.endPosition;
-	$.post('/gstate/newMap',
-		{
-			id:gameState.id,
-			map:data.map,
-			costMap:data.costMap,
-			dimensions:gameState.currentMapDimensions,
-			position:data.startPosition,
-			end:data.endPosition
-		},function(data){
-		console.log(data);
-	})
-}

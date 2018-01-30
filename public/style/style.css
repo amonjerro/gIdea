@@ -1,6 +1,9 @@
 .centered{
 	text-align: center;
 }
+#mainCanvas{
+	border:1px solid #ddd;
+}
 .menu-btn{
 	
 }
