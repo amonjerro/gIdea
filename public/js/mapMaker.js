@@ -65,7 +65,7 @@ function getNeighbours(){
 		return neighbours
 	}
 	//Right-most Column of the Map
-	if (gameState.currentPosition % (gameState.currentMapDimensions.x-1) == 0){
+	if ((gameState.currentPosition+1) % gameState.currentMapDimensions.x == 0){
 		neighbours.top = gameState.currentPosition - gameState.currentMapDimensions.x;
 		neighbours.left = gameState.currentPosition - 1;
 		neighbours.bottom = gameState.currentPosition + gameState.currentMapDimensions.x;

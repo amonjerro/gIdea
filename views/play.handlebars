@@ -1,7 +1,11 @@
+<div class="centered mt-5" id="canvasHolder">
+</div>
+<script src="js/canvaser.js"></script>
 {{#if new}}
 <script src="js/loadup.js"></script>
 {{else}}
 <script>
 	gameState = {{{id}}}
+	loadUp()
 </script>
 {{/if}}
